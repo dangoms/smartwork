@@ -18,7 +18,7 @@ def main():
 
     #post message
     if smartwork.DateTime().isWorkday():
-        resp = smartwork.httpPost(testUrl,msgMarkdown)
+        resp = smartwork.httpPost3(testUrl,msgMarkdown)
         print (resp)
 
 if __name__ == "__main__":

@@ -2,13 +2,12 @@
 # -*-coding:utf-8-*-
 
 import sys
-import requests
-import urllib2
+import urllib
+import urllib.request
 import json
 import time
 import datetime
 import os
-from jira import JIRA
 from chinese_calendar import is_holiday, is_workday
 
 defaultencoding = 'utf-8'
@@ -32,6 +31,18 @@ def httpPost(url,data):
     jdata = json.dumps(data)
     req = urllib2.Request(url, jdata)
     response = urllib2.urlopen(req)
+    return response.read()
+
+def httpPost3(url,data):
+    '''
+    Http request to post a message to server.
+    To be consist with python3. httpPost with default urllib on python3
+    -H 'Content-Type: application/json'
+    '''
+    header = {'Content-Type' : 'application/json'}
+    jdata = json.dumps(data).encode("utf-8")
+    req = urllib.request.Request(url, data = jdata, headers = header)
+    response = urllib.request.urlopen(req)
     return response.read()
 
 class DateTime(object):
