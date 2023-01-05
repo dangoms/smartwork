@@ -97,7 +97,9 @@ class DateTime(object):
             else:
                 return False
         except NotImplementedError:
-            return True
+            #try to update third-party lib for a self fix.
+            os.system('pip install chinese-calendar')
+            return False
 
     def getLastWorkdayOfMonth(self):
         '''
