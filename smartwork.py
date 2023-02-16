@@ -8,6 +8,7 @@ import json
 import time
 import datetime
 import os
+import socket
 from chinese_calendar import is_holiday, is_workday
 
 defaultencoding = 'utf-8'
@@ -250,6 +251,30 @@ class LocalFile(object):
                 if today.day == modifyDay.tm_mday:
                     return True
         return False
+
+class EnvCheck(object):
+    def __init__(self):
+        '''
+        the class is designd for process local file, including some useful process for dailywork.
+        '''
+        pass
+    def getLocalHostIp(self):
+        '''
+        return local host ip address by external tool ip
+        '''
+        # set netcard hardware name
+        netcard = 'enp3s0'
+        s = os.popen('ip -4 address show').read()
+
+        targetLines = []
+        lines = s.splitlines()
+        for line in lines:
+            if 'inet' in line:
+                if netcard in line:
+                    targetLines.append(line)
+        target = targetLines[0].strip()
+        targetItem = target.split(' ')
+        return targetItem[1].split('/')[0]
 
 class MessageJson(object):
     '''
